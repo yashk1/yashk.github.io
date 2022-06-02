@@ -1,6 +1,6 @@
 baseurl: "/"
 permalink: pretty
-title: "Yash Sharma"
+title: "Y"
 collections_dir: collections
 markdown: kramdown
 highlighter: rouge
