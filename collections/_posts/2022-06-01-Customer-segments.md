@@ -1,5 +1,5 @@
 ---
-layout: notebook
+layout: post
 title: Creating Customer Segments using Unsupervised Machine Learning
 skills: Python, Scikit-learn, PCA, Clustering
 external_type: Github
