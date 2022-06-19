@@ -1,3 +1,15 @@
+---
+layout: post
+title: "cs 1 "
+date: 2022-06-18-29T10:26:40+10:00
+authors: ["Yash Sharma"]
+categories: ["SQL"]
+tags: ["Data Science"]
+description: datamart
+thumbnail: "assets/images/unsplash-CTivHyiTbFw-640x360.jpeg"
+image: "https://source.unsplash.com/CTivHyiTbFw/1600x900"
+---
+
 # Case Study 1 - Danny's Diner :rice:
 
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width="500">
