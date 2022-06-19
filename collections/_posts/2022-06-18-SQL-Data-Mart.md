@@ -7,12 +7,10 @@ categories: ["SQL"]
 tags: ["Data Science"]
 description: datamart
 thumbnail: "assets/images/unsplash-CTivHyiTbFw-640x360.jpeg"
-image: "https://source.unsplash.com/CTivHyiTbFw/1600x900"
+image: "https://8weeksqlchallenge.com/images/case-study-designs/1.png"
 ---
 
 # Case Study 1 - Danny's Diner :rice:
-
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" width="500">
 
 ## Problem Statement
 
