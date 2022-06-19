@@ -1,98 +1,137 @@
 ---
 layout: post
-title: "cs 1 "
+title: " SQL Case Study 5: Data Mart"
 date: 2022-06-18-29T10:26:40+10:00
 authors: ["Yash Sharma"]
 categories: ["SQL"]
 tags: ["Data Science"]
-description: datamart
+description: Analyzing the sales after large scale supply changes for a online supermarket, Data Mart.
 thumbnail: "assets/images/unsplash-CTivHyiTbFw-640x360.jpeg"
-image: "https://8weeksqlchallenge.com/images/case-study-designs/1.png"
+image: "https://user-images.githubusercontent.com/81607668/131437982-fc087a4c-0b77-4714-907b-54e0420e7166.png"
 ---
 
-# Case Study 1 - Danny's Diner :rice:
+# Case Study #5: Data Mart
 
-## Problem Statement
+## 📚 Table of Contents
 
-Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, how much money they’ve spent and also which menu items are their favourite. Having this deeper connection with his customers will help him deliver a better and more personalised experience for his loyal customers.
+- [Business Task](#business-task)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Case Study Solution](#case-study-solution)
+  - [A. Data Cleansing Steps](#a-data-cleansing-steps)
+  - [B. Data Exploration](#b-data-exploration)
+  - [C. Before & After Analysis](#c-before--after-analysis)
+  - [D. Bonus Question](#d-bonus-question)
+  - [Complete SQL Syntax]
 
-## Available Data
+---
 
-Danny shared 3 key datasets for this case study:
+## Business Task
 
-- `sales`;
-- `menu`;
-- `members`.
+Data Mart is an online supermarket that specialises in fresh produce.
 
-### Table 1: `sales`
+In June 2020 - large scale supply changes were made at Data Mart. All Data Mart products now use sustainable packaging methods in every single step from the farm all the way to the customer.
 
-The `sales` table captures all `customer_id` level purchases with an corresponding `order_date` and `product_id` information for when and what menu items were ordered.
+Danny needs your help to analyse and quantify the impact of this change on the sales performance for Data Mart and it’s separate business areas.
 
-| customer_id | order_date | product_id |
-| ----------- | ---------- | ---------- |
-| A           | 2021-01-01 | 1          |
-| A           | 2021-01-01 | 2          |
-| A           | 2021-01-07 | 2          |
-| A           | 2021-01-10 | 3          |
-| A           | 2021-01-11 | 3          |
-| A           | 2021-01-11 | 3          |
-| B           | 2021-01-01 | 2          |
-| B           | 2021-01-02 | 2          |
-| B           | 2021-01-04 | 1          |
-| B           | 2021-01-11 | 1          |
-| B           | 2021-01-16 | 3          |
-| B           | 2021-02-01 | 3          |
-| C           | 2021-01-01 | 3          |
-| C           | 2021-01-01 | 3          |
-| C           | 2021-01-07 | 3          |
+The key business question to answer are the following:
 
-### Table 2: `menu`
-
-The `menu` table maps the `product_id` to the actual `product_name` and price of each menu item.
-
-| product_id | product_name | price |
-| ---------- | ------------ | ----- |
-| 1          | sushi        | 10    |
-| 2          | curry        | 15    |
-| 3          | ramen        | 12    |
-
-### Table 3: `members`
-
-The final members table captures the `join_date` when a `customer_id` joined the beta version of the Danny’s Diner loyalty program.
-
-| customer_id | join_date  |
-| ----------- | ---------- |
-| A           | 2021-01-07 |
-| B           | 2021-01-09 |
+- What was the quantifiable impact of the changes introduced in June 2020?
+- Which platform, region, segment and customer types were the most impacted by this change?
+- What can we do about future introduction of similar sustainability updates to the business to minimise impact on sales?
 
 ## Entity Relationship Diagram
 
-![изображение](https://user-images.githubusercontent.com/98699089/156034410-8775d5d2-eda5-4453-9e33-54bfef253084.png)
+For this case study there is only a single table: data_mart.weekly_sales
 
-## Case Study Questions
+<img width="287" alt="image" src="https://user-images.githubusercontent.com/81607668/131438278-45e6a4e8-7cf5-468a-937b-2c306a792782.png">
 
-[Solution](https://github.com/yashk1/ds-portfolio/blob/main/Projects/SQL/Case%20Study%201-%20Danny's%20Dinner/Solution.md)
+Here are some further details about the dataset:
 
-1. What is the total amount each customer spent at the restaurant?
+1. Data Mart has international operations using a multi-`region` strategy.
+2. Data Mart has both, a retail and online `platform` in the form of a Shopify store front to serve their customers.
+3. Customer `segment` and `customer_type` data relates to personal age and demographics information that is shared with Data Mart.
+4. `transactions` is the count of unique purchases made through Data Mart and `sales` is the actual dollar amount of purchases.
 
-2. How many days has each customer visited the restaurant?
+Each record in the dataset is related to a specific aggregated slice of the underlying sales data rolled up into a week_date value which represents the start of the sales week.
 
-3. What was the first item from the menu purchased by each customer?
+10 random rows are shown in the table output below from `data_mart.weekly_sales`.
 
-4. What is the most purchased item on the menu and how many times was it purchased by all customers?
+<img width="649" alt="image" src="https://user-images.githubusercontent.com/81607668/131438417-1e21efa3-9924-490f-9bff-3c28cce41a37.png">
 
-5. Which item was the most popular for each customer?
+---
 
-6. Which item was purchased first by the customer after they became a member?
+## Case Study Solution
 
-7. Which item was purchased just before the customer became a member?
+### A. Data Cleansing Steps
 
-8. What is the total items and amount spent for each member before they became a member?
+View my solution [here]().
 
-9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+In a single query, perform the following operations and generate a new table in the `data_mart` schema named `clean_weekly_sales`:
 
-10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?
+- Convert the `week_date` to a `DATE` format
+- Add a `week_number` as the second column for each `week_date` value, for example any value from the 1st of January to 7th of January will be 1, 8th to 14th will be 2 etc
+- Add a `month_number` with the calendar month for each `week_date` value as the 3rd column
+- Add a `calendar_year` column as the 4th column containing either 2018, 2019 or 2020 values
+- Add a new column called `age_band` after the original segment column using the following mapping on the number inside the segment value
 
-Bonus Questions
+<img width="166" alt="image" src="https://user-images.githubusercontent.com/81607668/131438667-3b7f3da5-cabc-436d-a352-2022841fc6a2.png">
+  
+- Add a new `demographic` column using the following mapping for the first letter in the `segment` values:
 
-11. Join and Rank All The Things
+| segment | demographic |
+| ------- | ----------- |
+| C       | Couples     |
+| F       | Families    |
+
+- Ensure all `null` string values with an "unknown" string value in the original `segment` column as well as the new `age_band` and `demographic` columns
+- Generate a new `avg_transaction` column as the sales value divided by transactions rounded to 2 decimal places for each record
+
+---
+
+### B. Data Exploration
+
+View my solution [here]().
+
+1. What day of the week is used for each week_date value?
+2. What range of week numbers are missing from the dataset?
+3. How many total transactions were there for each year in the dataset?
+4. What is the total sales for each region for each month?
+5. What is the total count of transactions for each platform
+6. What is the percentage of sales for Retail vs Shopify for each month?
+7. What is the percentage of sales by demographic for each year in the dataset?
+8. Which age_band and demographic values contribute the most to Retail sales?
+9. Can we use the avg_transaction column to find the average transaction size for each year for Retail vs Shopify? If not - how would you calculate it instead?
+
+---
+
+### C. Before & After Analysis
+
+View my solution [here]().
+
+This technique is usually used when we inspect an important event and want to inspect the impact before and after a certain point in time.
+
+Taking the `week_date` value of `2020-06-15` as the baseline week where the Data Mart sustainable packaging changes came into effect. We would include all `week_date` values for `2020-06-15` as the start of the period after the change and the previous week_date values would be before.
+
+Using this analysis approach - answer the following questions:
+
+1. What is the total sales for the 4 weeks before and after `2020-06-15`? What is the growth or reduction rate in actual values and percentage of sales?
+2. What about the entire 12 weeks before and after?
+3. How do the sale metrics for these 2 periods before and after compare with the previous years in 2018 and 2019?
+
+---
+
+### D. Bonus Question
+
+View my solution [here]().
+
+Which areas of the business have the highest negative impact in sales metrics performance in 2020 for the 12 week before and after period?
+
+- `region`
+- `platform`
+- `age_band`
+- `demographic`
+- `customer_type`
+
+Do you have any further recommendations for Danny’s team at Data Mart or any interesting insights based off this analysis?
+
+---
