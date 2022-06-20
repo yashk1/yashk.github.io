@@ -5,6 +5,10 @@ skills: Python, Scikit-learn, PCA, Clustering
 external_type: Github
 external_url: https://github.com/sajal2692/data-science-portfolio/blob/master/customer_segments/customer_segments.ipynb
 description: Analyzing customer spending data using Unsupervised Learning techniques for discovering internal structure, patterns and knowledge.
+tags: ["Data Science"]
+description: Analyzing the sales after large scale supply changes for a online supermarket, Data Mart.
+thumbnail: "assets/images/segment.jpg"
+image: "https://assets.website-files.com/60af0e831a8c29b653fff5ff/611573bac7137d94a73a99e6_Market-Segmentation_Featured-1140x768%402x-80-min.jpeg"
 ---
 
 ---

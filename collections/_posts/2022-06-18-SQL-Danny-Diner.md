@@ -6,7 +6,7 @@ authors: ["Yash Sharma"]
 categories: ["SQL"]
 tags: ["Data Science"]
 description: datamart
-thumbnail: "assets/images/unsplash-CTivHyiTbFw-640x360.jpeg"
+thumbnail: "assets/images/diner.png"
 image: "https://8weeksqlchallenge.com/images/case-study-designs/1.png"
 ---
 

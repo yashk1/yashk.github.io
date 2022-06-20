@@ -6,7 +6,7 @@ authors: ["Yash Sharma"]
 categories: ["SQL"]
 tags: ["Data Science"]
 description: Analyzing the sales after large scale supply changes for a online supermarket, Data Mart.
-thumbnail: "assets/images/unsplash-CTivHyiTbFw-640x360.jpeg"
+thumbnail: "assets/images/mart.png"
 image: "https://user-images.githubusercontent.com/81607668/131437982-fc087a4c-0b77-4714-907b-54e0420e7166.png"
 ---
 
