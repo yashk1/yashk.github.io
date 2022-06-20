@@ -6,6 +6,6 @@ authors: ["Yash Sharma"]
 categories: ["Machine Learning", "Python"]
 tags: ["Data Science"]
 description: Predicting the popularity of a song based on acousticness, danceability, loudness, etc. by getting the data from Spotify's Valence API
-thumbnail: "assets/images/unsplash-CTivHyiTbFw-640x360.jpeg"
+thumbnail: "assets/images/spotify-app.jpg"
 image: "https://source.unsplash.com/CTivHyiTbFw/1600x900"
 ---
