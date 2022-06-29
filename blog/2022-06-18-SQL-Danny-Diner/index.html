@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title>
+  
+     SQL Case Study 1: Danny's Diner
+    -
+    
+  
+</title>
+
+
+  <meta name="description" content="datamart"/>
+
+
+<meta property="og:title" content=" SQL Case Study 1: Danny's Diner"/>
+
+<meta content="website" property="og:type"/>
+<meta property="og:url" content="/blog/2022-06-18-SQL-Danny-Diner/"/>
+
+  <meta property="og:image" content="https://8weeksqlchallenge.com/images/case-study-designs/1.png"/>
+
+<meta property="og:description" content="datamart"/>
+
+<meta content="summary" name="twitter:card"/>
+<meta name="twitter:site" content="@zerostaticio"/>
+
+<meta name="twitter:creator" content="@zerostaticio"/>
+
+
+
+    <link rel="icon" href="/jekyll-atlantic-theme/favicon.png">
+    <link href="/jekyll-atlantic-theme/assets/css/style.css" rel="stylesheet">
+  </head>
+  <body class="page ">
+    <div id="menu-container"
+  class=" bg-blue-600 h-screen w-screen fixed z-50 p-8 flex-col items-center justify-around bg-gradient-to-b from-green-400 to-blue-500 opacity-90 overflow-hidden hidden">
+  <div id="menu-close" class="top-7 right-7 absolute">
+    <svg aria-hidden="true" focusable="false" class="h-6 text-white" role="img" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 352 512">
+      <path fill="currentColor"
+        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+      </path>
+    </svg>
+  </div>
+  <div class="flex flex-col text-center text-white text-2xl font-bold">
+    
+    <a class="py-2" href="/">Home</a>
+    
+    <a class="py-2" href="/blog/">Blog</a>
+    
+    <a class="py-2" href="/about/">About</a>
+    
+  </div>
+</div>
+    <div class="container mx-auto px-6 md:px-4">
+      <header class="flex items-center justify-between py-6">
+  <div class="logo hidden md:block">
+  <a class="flex items-center hover:opacity-70 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/">
+    
+    <img class="mr-2" height="36px" width="36px"
+      alt=" Logo" src="/jekyll-atlantic-theme/assets/images/logo/logo.svg" />
+    
+    
+    <h2 class="text-2xl font-sans font-semibold"><strong>Home</strong></h2>
+    
+  </a>
+</div>
+<div class="logo-mobile block md:hidden">
+  <a class="flex items-center hover:opacity-70 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/">
+    
+    <img height="36px" width="36px"
+      alt=" Logo" src="/jekyll-atlantic-theme/assets/images/logo/logo-mobile.svg" />
+    
+    
+    <h2 class="text-2xl font-sans font-semibold"></h2>
+    
+  </a>
+</div>
+  <div class="" id="menu-trigger">
+    <svg aria-hidden="true" class="text-black" data-icon="bars" data-prefix="fas" focusable="false" height="24"
+      role="img" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+        fill="currentColor"></path>
+    </svg>
+  </div>
+</header>
+      
+
+
+
+
+<div class="py-6 md:py-12 lg:w-10/12 md:text-center mx-auto">
+  
+  <div class="font-medium text-gray-700">17 June 2022</div>
+  
+  <h1 class="heading text-4xl md:text-6xl font-bold font-sans md:leading-tight">
+     SQL Case Study 1: Danny's Diner
+  </h1>
+  
+  <h2 class="text-xl text-gray-600 mt-2">datamart</h2>
+  
+</div>
+
+
+  <div class="flex flex-col pb-3 md:hidden">
+    
+      
+
+
+
+    
+  </div>
+
+
+<img width="1600" height="900" src="https://8weeksqlchallenge.com/images/case-study-designs/1.png"/>
+
+<div class="flex flex-col md:flex-row py-6 md:py-12">
+
+  <div class="w-full md:w-3/12 pr-3">
+    
+      <div class="flex flex-col hidden md:flex mb-3 md:mb-6">
+        
+          
+
+
+
+        
+      </div>
+    
+
+    
+      <div class="hidden md:block">
+        
+          <a class="p-1 px-3 mr-1 mb-1 inline-block text-xs font-mono rounded bg-green-200 text-green-800 hover:bg-blue-200 hover:text-blue-800 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/category/sql">SQL</a>
+        
+      </div>
+    
+  </div>
+
+  <div class="w-full md:w-9/12">
+    <div class="prose">
+      <h1 id="case-study-1---dannys-diner">Case Study 1 - Danny’s Diner</h1>
+
+<h2 id="problem-statement">Problem Statement</h2>
+
+<p>Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, how much money they’ve spent and also which menu items are their favourite. Having this deeper connection with his customers will help him deliver a better and more personalised experience for his loyal customers.</p>
+
+<h2 id="available-data">Available Data</h2>
+
+<p>Danny shared 3 key datasets for this case study:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sales</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">menu</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">members</code>.</li>
+</ul>
+
+<h3 id="table-1-sales">Table 1: <code class="language-plaintext highlighter-rouge">sales</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">sales</code> table captures all <code class="language-plaintext highlighter-rouge">customer_id</code> level purchases with an corresponding <code class="language-plaintext highlighter-rouge">order_date</code> and <code class="language-plaintext highlighter-rouge">product_id</code> information for when and what menu items were ordered.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>order_date</th>
+      <th>product_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>2021-01-01</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-01</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-07</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-10</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-11</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-11</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-01</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-02</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-04</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-11</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-16</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-02-01</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2021-01-01</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2021-01-01</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2021-01-07</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="table-2-menu">Table 2: <code class="language-plaintext highlighter-rouge">menu</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">menu</code> table maps the <code class="language-plaintext highlighter-rouge">product_id</code> to the actual <code class="language-plaintext highlighter-rouge">product_name</code> and price of each menu item.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>product_id</th>
+      <th>product_name</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>sushi</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>curry</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>ramen</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="table-3-members">Table 3: <code class="language-plaintext highlighter-rouge">members</code></h3>
+
+<p>The final members table captures the <code class="language-plaintext highlighter-rouge">join_date</code> when a <code class="language-plaintext highlighter-rouge">customer_id</code> joined the beta version of the Danny’s Diner loyalty program.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>join_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>2021-01-07</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-09</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="entity-relationship-diagram">Entity Relationship Diagram</h2>
+
+<p><img src="https://user-images.githubusercontent.com/98699089/156034410-8775d5d2-eda5-4453-9e33-54bfef253084.png" alt="изображение" /></p>
+
+<h2 id="case-study-questions">Case Study Questions</h2>
+
+<p><a href="https://github.com/yashk1/ds-portfolio/blob/main/Projects/SQL/Case%20Study%201-%20Danny's%20Dinner/Solution.md">Solution</a></p>
+
+<ol>
+  <li>
+    <p>What is the total amount each customer spent at the restaurant?</p>
+  </li>
+  <li>
+    <p>How many days has each customer visited the restaurant?</p>
+  </li>
+  <li>
+    <p>What was the first item from the menu purchased by each customer?</p>
+  </li>
+  <li>
+    <p>What is the most purchased item on the menu and how many times was it purchased by all customers?</p>
+  </li>
+  <li>
+    <p>Which item was the most popular for each customer?</p>
+  </li>
+  <li>
+    <p>Which item was purchased first by the customer after they became a member?</p>
+  </li>
+  <li>
+    <p>Which item was purchased just before the customer became a member?</p>
+  </li>
+  <li>
+    <p>What is the total items and amount spent for each member before they became a member?</p>
+  </li>
+  <li>
+    <p>If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?</p>
+  </li>
+  <li>
+    <p>In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?</p>
+  </li>
+</ol>
+
+<p>Bonus Questions</p>
+
+<ol>
+  <li>Join and Rank All The Things</li>
+</ol>
+
+<h2 id="solution">Solution</h2>
+
+<h2 id="case-study-questions-1">Case Study Questions</h2>
+
+<h4 id="1-what-is-the-total-amount-each-customer-spent-at-the-restaurant">1. What is the total amount each customer spent at the restaurant?</h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span> <span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">price</span><span class="p">)</span> <span class="k">as</span> <span class="n">total_amount_spent</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="n">s</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="n">m</span> <span class="k">on</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">sum</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">price</span><span class="p">)</span> <span class="k">DESC</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>total_spent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>36</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h4 id="2-how-many-days-has-each-customer-visited-the-restaurant">2. How many days has each customer visited the restaurant?</h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">customer_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span> <span class="n">order_date</span><span class="p">)</span> <span class="k">as</span> <span class="n">num_of_days_visited</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">customer_id</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>num_days_of_visited</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h4 id="3-what-was-the-first-item-from-the-menu-purchased-by-each-customer">3. What was the first item from the menu purchased by each customer?</h4>
+
+<p>To get the first item we need to rank the items ordered by each customer in a temporary table using <code class="language-plaintext highlighter-rouge">WITH</code> statement.</p>
+
+<p>After we have those ranks, we can select the rows with the rank = 1.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">item_rank_by_order_date</span> <span class="k">as</span> <span class="p">(</span>
+<span class="k">select</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">product_name</span><span class="p">,</span> <span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span><span class="p">(</span><span class="k">partition</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">)</span> <span class="k">as</span> <span class="n">rnk</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="n">s</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="n">m</span>
+<span class="k">on</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span><span class="p">)</span>
+
+<span class="k">select</span> <span class="n">customer_id</span><span class="p">,</span> <span class="n">product_name</span>
+<span class="k">from</span> <span class="n">item_rank_by_order_date</span>
+<span class="k">where</span> <span class="n">rnk</span><span class="o">=</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>product_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>sushi</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>curry</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>curry</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>ramen</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>ramen</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<p>The first purchase for customer A was :sushi</p>
+
+<p>The first purchase for customer B was :curry:</p>
+
+<p>The first (and the only) purchase for customer C was :ramen:</p>
+
+<h4 id="4-what-is-the-most-purchased-item-on-the-menu-and-how-many-times-was-it-purchased-by-all-customers">4. What is the most purchased item on the menu and how many times was it purchased by all customers?</h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">product_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">product_id</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>product_id</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<p>The most purchased item on the menu was :ramen:, it was purchased 8 times in total</p>
+
+<h4 id="5-which-item-was-the-most-popular-for-each-customer">5. Which item was the most popular for each customer?</h4>
+
+<p>Let’s look at all the results sorted by purchase frequency:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SET</span>
+  <span class="n">search_path</span> <span class="o">=</span> <span class="n">dannys_diner</span><span class="p">;</span>
+<span class="k">SELECT</span>
+  <span class="n">customer_id</span><span class="p">,</span>
+  <span class="n">product_name</span><span class="p">,</span>
+  <span class="k">COUNT</span><span class="p">(</span><span class="n">product_name</span><span class="p">)</span> <span class="k">AS</span> <span class="n">total_purchase_quantity</span>
+<span class="k">FROM</span>
+  <span class="n">sales</span> <span class="k">AS</span> <span class="n">s</span>
+  <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">menu</span> <span class="k">AS</span> <span class="n">m</span> <span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">GROUP</span> <span class="k">BY</span>
+  <span class="n">customer_id</span><span class="p">,</span>
+  <span class="n">product_name</span>
+<span class="k">ORDER</span> <span class="k">BY</span>
+  <span class="n">total_purchase_quantity</span> <span class="k">DESC</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>product_name</th>
+      <th>total_purchase_quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C</td>
+      <td>ramen</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>ramen</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>curry</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>sushi</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>ramen</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>curry</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>sushi</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<p>The most popular item for customer A was :ramen:, they purchased it 3 times</p>
+
+<p>The most popular item for customer B was :curry:, :ramen: and :sushi:, they purchased each dish 2 times</p>
+
+<p>The most popular item for customer C was :ramen:, they purchased it 3 times</p>
+
+<h4 id="6-which-item-was-purchased-first-by-the-customer-after-they-became-a-member">6. Which item was purchased first by the customer after they became a member?</h4>
+
+<p>Let’s consider that if the purchase date matches the membership date, then the purchase made on this date, was the first customer’s purchase as a member.
+It means that we need to include this date in the WHERE statement.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="n">member_sales_cte</span> <span class="k">AS</span>
+<span class="p">(</span>
+ <span class="k">SELECT</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">join_date</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">,</span>   <span class="n">s</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span>
+         <span class="n">DENSE_RANK</span><span class="p">()</span> <span class="n">OVER</span><span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">)</span> <span class="k">AS</span> <span class="n">rank</span>
+     <span class="k">FROM</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="k">AS</span> <span class="n">s</span>
+ <span class="k">JOIN</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">members</span> <span class="k">AS</span> <span class="n">m</span>
+  <span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">customer_id</span>
+ <span class="k">WHERE</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="p">.</span><span class="n">join_date</span>
+<span class="p">)</span>
+
+<span class="k">SELECT</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span><span class="n">m</span><span class="p">.</span><span class="n">join_date</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">,</span> <span class="n">m2</span><span class="p">.</span><span class="n">product_name</span>
+<span class="k">FROM</span> <span class="n">member_sales_cte</span> <span class="k">AS</span> <span class="n">s</span>
+<span class="k">JOIN</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="k">AS</span> <span class="n">m2</span>
+ <span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">m2</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">WHERE</span> <span class="n">rank</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>join_date</th>
+      <th>order_date</th>
+      <th>product_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>2021-01-07</td>
+      <td>2021-01-07</td>
+      <td>curry</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-09</td>
+      <td>2021-01-11</td>
+      <td>sushi</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h4 id="7-which-item-was-purchased-just-before-the-customer-became-a-member">7. Which item was purchased just before the customer became a member?</h4>
+
+<p>Customer A purchased their membership on January, 7 - and they placed an order that day.
+We do not have time and therefore can not say exactly if this purchase was made before of after they became a member.
+Let’s consider that if the purchase date matches the membership date, then the purchase made on this date, was the first customer’s purchase as a member.
+It means that we need to exclude this date in the <code class="language-plaintext highlighter-rouge">WHERE</code> statement.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">customer_purchase_before_join_date</span> <span class="k">as</span><span class="p">(</span><span class="k">select</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">join_date</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">,</span>
+<span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span><span class="p">(</span><span class="k">partition</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span> <span class="k">order</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">as</span> <span class="n">rnk</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="n">s</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">members</span> <span class="n">m</span>
+<span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">customer_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+<span class="k">where</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">.</span><span class="n">join_date</span><span class="p">)</span>
+
+<span class="k">select</span> <span class="n">customer_id</span><span class="p">,</span><span class="n">join_date</span><span class="p">,</span> <span class="n">order_date</span> <span class="p">,</span> <span class="n">t2</span><span class="p">.</span><span class="n">product_name</span>
+<span class="k">from</span> <span class="n">customer_purchase_before_join_date</span> <span class="n">t1</span>
+<span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="n">t2</span>
+<span class="k">on</span> <span class="n">t1</span><span class="p">.</span><span class="n">product_id</span><span class="o">=</span><span class="n">t2</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">where</span> <span class="n">rnk</span> <span class="o">=</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>join_date</th>
+      <th>order_date</th>
+      <th>product_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>B</td>
+      <td>2021-01-09</td>
+      <td>2021-01-04</td>
+      <td>sushi</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-07</td>
+      <td>2021-01-01</td>
+      <td>sushi</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-07</td>
+      <td>2021-01-01</td>
+      <td>curry</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<p>Customer A purchased two items on January, 1 - the date before they became a member.
+We need more information to tell exactly what item was purchased before they became a member: order number or purchase time. I am keeping two items in the list for now.</p>
+
+<p>Customer B purchased :sushi: on 2021-01-04</p>
+
+<p>Customer A purchased :curry: and :sushi: on 2021-01-01</p>
+
+<h4 id="8-what-is-the-total-items-and-amount-spent-for-each-member-before-they-became-a-member">8. What is the total items and amount spent for each member before they became a member?</h4>
+
+<p>Let’s consider that if the purchase date matches the membership date, then the purchase made on this date, was the first customer’s purchase as a member.
+It means that we need to exclude this date in the WHERE statement.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">mem</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span><span class="p">)</span> <span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">price</span><span class="p">)</span> <span class="k">as</span> <span class="n">amount_spent_before_joining</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="n">m</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="n">s</span>
+<span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">members</span> <span class="n">mem</span>
+<span class="k">on</span> <span class="n">mem</span><span class="p">.</span><span class="n">customer_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+<span class="k">where</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span> <span class="o">&lt;</span> <span class="n">mem</span><span class="p">.</span><span class="n">join_date</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">mem</span><span class="p">.</span><span class="n">customer_id</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>count</th>
+      <th>amount_spent_before_joining</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>2</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>3</td>
+      <td>40</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h4 id="9-if-each-1-spent-equates-to-10-points-and-sushi-has-a-2x-points-multiplier---how-many-points-would-each-customer-have">9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?</h4>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span> <span class="p">,</span>
+<span class="k">Sum</span><span class="p">(</span><span class="k">case</span>
+  <span class="k">when</span>
+    <span class="n">m</span><span class="p">.</span><span class="n">product_name</span> <span class="o">=</span><span class="s1">'sushi'</span> <span class="k">then</span> <span class="n">m</span><span class="p">.</span><span class="n">price</span> <span class="o">*</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">else</span> <span class="n">m</span><span class="p">.</span><span class="n">price</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="k">END</span><span class="p">)</span> <span class="k">as</span> <span class="n">points</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="n">m</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="n">s</span>
+<span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>B</td>
+      <td>940</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>360</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>860</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h4 id="10-in-the-first-week-after-a-customer-joins-the-program-including-their-join-date-they-earn-2x-points-on-all-items-not-just-sushi---how-many-points-do-customer-a-and-b-have-at-the-end-of-january">10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?</h4>
+
+<p>First we need to count points as usual: 10 points for each dollar spent on :curry: and :ramen: and 20 points for each dollar spent on :sushi:.
+We add this calculation to the <code class="language-plaintext highlighter-rouge">CTE</code> using <code class="language-plaintext highlighter-rouge">WITH</code> statement. Next we use this <code class="language-plaintext highlighter-rouge">CTE</code> to add extra 10 points for all the purchases of :curry: and :ramen: made by customers on the first week of their membership and return the sum of new points. The points for :sushi: remain the same - 20 points.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SET</span>
+  <span class="n">search_path</span> <span class="o">=</span> <span class="n">dannys_diner</span><span class="p">;</span>
+<span class="k">WITH</span> <span class="n">count_points</span> <span class="k">AS</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+      <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span>
+      <span class="n">order_date</span><span class="p">,</span>
+      <span class="n">join_date</span><span class="p">,</span>
+      <span class="n">product_name</span><span class="p">,</span>
+      <span class="k">SUM</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">AS</span> <span class="n">point</span>
+    <span class="k">FROM</span>
+      <span class="n">sales</span> <span class="k">AS</span> <span class="n">s</span>
+      <span class="k">JOIN</span> <span class="p">(</span>
+        <span class="k">SELECT</span>
+          <span class="n">product_id</span><span class="p">,</span>
+          <span class="n">product_name</span><span class="p">,</span>
+          <span class="k">CASE</span>
+            <span class="k">WHEN</span> <span class="n">product_name</span> <span class="o">=</span> <span class="s1">'sushi'</span> <span class="k">THEN</span> <span class="n">price</span> <span class="o">*</span> <span class="mi">20</span>
+            <span class="k">ELSE</span> <span class="n">price</span> <span class="o">*</span> <span class="mi">10</span>
+          <span class="k">END</span> <span class="k">AS</span> <span class="n">point</span>
+        <span class="k">FROM</span>
+          <span class="n">menu</span> <span class="k">AS</span> <span class="n">m</span>
+      <span class="p">)</span> <span class="k">AS</span> <span class="n">p</span> <span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">product_id</span>
+      <span class="k">JOIN</span> <span class="n">members</span> <span class="k">AS</span> <span class="n">mm</span> <span class="k">ON</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span> <span class="o">=</span> <span class="n">mm</span><span class="p">.</span><span class="n">customer_id</span>
+    <span class="k">GROUP</span> <span class="k">BY</span>
+      <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span>
+      <span class="n">order_date</span><span class="p">,</span>
+      <span class="n">join_date</span><span class="p">,</span>
+      <span class="n">product_name</span><span class="p">,</span>
+      <span class="n">point</span>
+  <span class="p">)</span>
+<span class="k">SELECT</span>
+  <span class="n">customer_id</span><span class="p">,</span>
+  <span class="k">SUM</span><span class="p">(</span>
+    <span class="k">CASE</span>
+      <span class="k">WHEN</span> <span class="n">order_date</span> <span class="o">&gt;=</span> <span class="n">join_date</span>
+      <span class="k">AND</span> <span class="n">order_date</span> <span class="o">&lt;</span> <span class="n">join_date</span> <span class="o">+</span> <span class="p">(</span><span class="mi">7</span> <span class="o">*</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">)</span>
+      <span class="k">AND</span> <span class="n">product_name</span> <span class="o">!=</span> <span class="s1">'sushi'</span> <span class="k">THEN</span> <span class="n">point</span> <span class="o">*</span> <span class="mi">2</span>
+      <span class="k">ELSE</span> <span class="n">point</span>
+    <span class="k">END</span>
+  <span class="p">)</span> <span class="k">AS</span> <span class="n">new_points</span>
+<span class="k">FROM</span>
+  <span class="n">count_points</span>
+<span class="k">WHERE</span>
+  <span class="n">DATE_PART</span><span class="p">(</span><span class="s1">'month'</span><span class="p">,</span> <span class="n">order_date</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">GROUP</span> <span class="k">BY</span>
+  <span class="mi">1</span>
+<span class="k">ORDER</span> <span class="k">BY</span>
+  <span class="mi">1</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>new_points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>1370</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>820</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<p>Customer A at the end of January would have 1370 points</p>
+
+<p>Customer B at the end of January would have 820 points*** and 0 benefits from their first week membership</p>
+
+<h2 id="bonus-questions">Bonus Questions</h2>
+
+<h3 id="join-and-rank-all-the-things">Join and Rank All The Things</h3>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">cte</span> <span class="k">as</span> <span class="p">(</span><span class="k">select</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">product_name</span> <span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">price</span><span class="p">,</span>
+<span class="k">case</span> <span class="k">when</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span> <span class="o">&lt;</span> <span class="n">mem</span><span class="p">.</span><span class="n">join_date</span> <span class="k">then</span> <span class="s1">'N'</span>
+<span class="k">else</span> <span class="s1">'Y'</span>
+<span class="k">END</span> <span class="k">as</span> <span class="n">member</span>
+<span class="k">from</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">sales</span> <span class="n">s</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">menu</span> <span class="n">m</span>
+<span class="k">on</span> <span class="n">s</span><span class="p">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">product_id</span>
+<span class="k">inner</span> <span class="k">join</span> <span class="n">dannys_diner</span><span class="p">.</span><span class="n">members</span> <span class="n">mem</span>
+<span class="k">on</span> <span class="n">mem</span><span class="p">.</span><span class="n">customer_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">s</span><span class="p">.</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">order_date</span><span class="p">)</span>
+
+<span class="k">select</span> <span class="o">*</span><span class="p">,</span> <span class="k">case</span> <span class="k">when</span> <span class="n">member</span><span class="o">=</span><span class="s1">'N'</span> <span class="k">then</span> <span class="k">NULL</span>
+<span class="k">else</span> <span class="n">dense_rank</span><span class="p">()</span> <span class="n">over</span> <span class="p">(</span><span class="k">partition</span> <span class="k">by</span> <span class="n">customer_id</span><span class="p">,</span><span class="n">member</span> <span class="k">order</span> <span class="k">by</span> <span class="n">order_date</span><span class="p">)</span>
+<span class="k">end</span> <span class="k">as</span> <span class="n">ranking</span>
+<span class="k">from</span> <span class="n">cte</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>customer_id</th>
+      <th>order_date</th>
+      <th>product_name</th>
+      <th>price</th>
+      <th>member</th>
+      <th>ranking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>2021-01-01</td>
+      <td>curry</td>
+      <td>15</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-01</td>
+      <td>sushi</td>
+      <td>10</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-07</td>
+      <td>curry</td>
+      <td>15</td>
+      <td>Y</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-10</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>Y</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-11</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>Y</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>2021-01-11</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>Y</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-01</td>
+      <td>curry</td>
+      <td>15</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-02</td>
+      <td>curry</td>
+      <td>15</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-04</td>
+      <td>sushi</td>
+      <td>10</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-11</td>
+      <td>sushi</td>
+      <td>10</td>
+      <td>Y</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-01-16</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>Y</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>2021-02-01</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>Y</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2021-01-01</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2021-01-01</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>2021-01-07</td>
+      <td>ramen</td>
+      <td>12</td>
+      <td>N</td>
+      <td>null</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+    </div>
+  </div>
+
+</div>
+
+
+  <div class="py-6 mt-6 border-t-2 block md:hidden">
+    <h3 class="text-sm font-medium mb-1">Categories</h3>
+    <div>
+      
+        <a class="p-1 px-3 mr-1 mb-1 inline-block text-xs font-mono rounded bg-green-200 text-green-800 hover:bg-blue-200 hover:text-blue-800 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/category/sql">SQL</a>
+      
+    </div>
+  </div>
+ 
+      <footer class="py-6 border-t-2">
+  <div class="container mx-auto">
+    <div class="flex mb-2">
+      
+      <a class="py-2 mr-2" href="https://github.com/yashk1"><img width="24" height="24" src="https://simpleicons.org/icons/github.svg" alt="Github" /></a>
+      
+      <a class="py-2 mr-2" href="https://twitter.com/yash8145"><img width="24" height="24" src="https://simpleicons.org/icons/linkedin.svg" alt="Twitter" /></a>
+      
+      <a class="py-2 mr-2" href="https://www.linkedin.com/in/yashk1/"><img width="24" height="24" src="https://simpleicons.org/icons/twitter.svg" alt="Linkedin" /></a>
+      
+    </div>
+    <div class="text-sm text-gray-600">
+      <span>Free Jekyll theme by</span>
+<a class="text-green-500" href="
+        https://www.zerostatic.io">Zerostatic Themes</a>
+    </div>
+</footer>
+    </div>
+    
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXYJ1TL6TK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-LXYJ1TL6TK');
+    </script>
+    
+
+    <script type="text/javascript" src="/jekyll-atlantic-theme/assets/js/hamburger.js"></script>
+  </body>
+</html>

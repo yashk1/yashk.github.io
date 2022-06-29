@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title>
+  
+     SQL Case Study 5: Data Mart
+    -
+    
+  
+</title>
+
+
+  <meta name="description" content="Analyzing the sales after large scale supply changes for a online supermarket, Data Mart."/>
+
+
+<meta property="og:title" content=" SQL Case Study 5: Data Mart"/>
+
+<meta content="website" property="og:type"/>
+<meta property="og:url" content="/blog/2022-06-18-SQL-Data-Mart/"/>
+
+  <meta property="og:image" content="https://user-images.githubusercontent.com/81607668/131437982-fc087a4c-0b77-4714-907b-54e0420e7166.png"/>
+
+<meta property="og:description" content="Analyzing the sales after large scale supply changes for a online supermarket, Data Mart."/>
+
+<meta content="summary" name="twitter:card"/>
+<meta name="twitter:site" content="@zerostaticio"/>
+
+<meta name="twitter:creator" content="@zerostaticio"/>
+
+
+
+    <link rel="icon" href="/jekyll-atlantic-theme/favicon.png">
+    <link href="/jekyll-atlantic-theme/assets/css/style.css" rel="stylesheet">
+  </head>
+  <body class="page ">
+    <div id="menu-container"
+  class=" bg-blue-600 h-screen w-screen fixed z-50 p-8 flex-col items-center justify-around bg-gradient-to-b from-green-400 to-blue-500 opacity-90 overflow-hidden hidden">
+  <div id="menu-close" class="top-7 right-7 absolute">
+    <svg aria-hidden="true" focusable="false" class="h-6 text-white" role="img" xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 352 512">
+      <path fill="currentColor"
+        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+      </path>
+    </svg>
+  </div>
+  <div class="flex flex-col text-center text-white text-2xl font-bold">
+    
+    <a class="py-2" href="/">Home</a>
+    
+    <a class="py-2" href="/blog/">Blog</a>
+    
+    <a class="py-2" href="/about/">About</a>
+    
+  </div>
+</div>
+    <div class="container mx-auto px-6 md:px-4">
+      <header class="flex items-center justify-between py-6">
+  <div class="logo hidden md:block">
+  <a class="flex items-center hover:opacity-70 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/">
+    
+    <img class="mr-2" height="36px" width="36px"
+      alt=" Logo" src="/jekyll-atlantic-theme/assets/images/logo/logo.svg" />
+    
+    
+    <h2 class="text-2xl font-sans font-semibold"><strong>Home</strong></h2>
+    
+  </a>
+</div>
+<div class="logo-mobile block md:hidden">
+  <a class="flex items-center hover:opacity-70 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/">
+    
+    <img height="36px" width="36px"
+      alt=" Logo" src="/jekyll-atlantic-theme/assets/images/logo/logo-mobile.svg" />
+    
+    
+    <h2 class="text-2xl font-sans font-semibold"></h2>
+    
+  </a>
+</div>
+  <div class="" id="menu-trigger">
+    <svg aria-hidden="true" class="text-black" data-icon="bars" data-prefix="fas" focusable="false" height="24"
+      role="img" viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+        fill="currentColor"></path>
+    </svg>
+  </div>
+</header>
+      
+
+
+
+
+<div class="py-6 md:py-12 lg:w-10/12 md:text-center mx-auto">
+  
+  <div class="font-medium text-gray-700">17 June 2022</div>
+  
+  <h1 class="heading text-4xl md:text-6xl font-bold font-sans md:leading-tight">
+     SQL Case Study 5: Data Mart
+  </h1>
+  
+  <h2 class="text-xl text-gray-600 mt-2">Analyzing the sales after large scale supply changes for a online supermarket, Data Mart.</h2>
+  
+</div>
+
+
+  <div class="flex flex-col pb-3 md:hidden">
+    
+      
+
+
+
+    
+  </div>
+
+
+<img width="1600" height="900" src="https://user-images.githubusercontent.com/81607668/131437982-fc087a4c-0b77-4714-907b-54e0420e7166.png"/>
+
+<div class="flex flex-col md:flex-row py-6 md:py-12">
+
+  <div class="w-full md:w-3/12 pr-3">
+    
+      <div class="flex flex-col hidden md:flex mb-3 md:mb-6">
+        
+          
+
+
+
+        
+      </div>
+    
+
+    
+      <div class="hidden md:block">
+        
+          <a class="p-1 px-3 mr-1 mb-1 inline-block text-xs font-mono rounded bg-green-200 text-green-800 hover:bg-blue-200 hover:text-blue-800 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/category/sql">SQL</a>
+        
+      </div>
+    
+  </div>
+
+  <div class="w-full md:w-9/12">
+    <div class="prose">
+      <h1 id="case-study-5-data-mart">Case Study #5: Data Mart</h1>
+
+<h2 id="-table-of-contents">📚 Table of Contents</h2>
+
+<ul>
+  <li><a href="#business-task">Business Task</a></li>
+  <li><a href="#entity-relationship-diagram">Entity Relationship Diagram</a></li>
+  <li><a href="#case-study-solution">Case Study Solution</a>
+    <ul>
+      <li><a href="#a-data-cleansing-steps">A. Data Cleansing Steps</a></li>
+      <li><a href="#b-data-exploration">B. Data Exploration</a></li>
+      <li><a href="#c-before--after-analysis">C. Before &amp; After Analysis</a></li>
+      <li><a href="#d-bonus-question">D. Bonus Question</a></li>
+      <li>[Complete SQL Syntax]</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="business-task">Business Task</h2>
+
+<p>Data Mart is an online supermarket that specialises in fresh produce.</p>
+
+<p>In June 2020 - large scale supply changes were made at Data Mart. All Data Mart products now use sustainable packaging methods in every single step from the farm all the way to the customer.</p>
+
+<p>Danny needs your help to analyse and quantify the impact of this change on the sales performance for Data Mart and it’s separate business areas.</p>
+
+<p>The key business question to answer are the following:</p>
+
+<ul>
+  <li>What was the quantifiable impact of the changes introduced in June 2020?</li>
+  <li>Which platform, region, segment and customer types were the most impacted by this change?</li>
+  <li>What can we do about future introduction of similar sustainability updates to the business to minimise impact on sales?</li>
+</ul>
+
+<h2 id="entity-relationship-diagram">Entity Relationship Diagram</h2>
+
+<p>For this case study there is only a single table: data_mart.weekly_sales</p>
+
+<p><img width="287" alt="image" src="https://user-images.githubusercontent.com/81607668/131438278-45e6a4e8-7cf5-468a-937b-2c306a792782.png" /></p>
+
+<p>Here are some further details about the dataset:</p>
+
+<ol>
+  <li>Data Mart has international operations using a multi-<code class="language-plaintext highlighter-rouge">region</code> strategy.</li>
+  <li>Data Mart has both, a retail and online <code class="language-plaintext highlighter-rouge">platform</code> in the form of a Shopify store front to serve their customers.</li>
+  <li>Customer <code class="language-plaintext highlighter-rouge">segment</code> and <code class="language-plaintext highlighter-rouge">customer_type</code> data relates to personal age and demographics information that is shared with Data Mart.</li>
+  <li><code class="language-plaintext highlighter-rouge">transactions</code> is the count of unique purchases made through Data Mart and <code class="language-plaintext highlighter-rouge">sales</code> is the actual dollar amount of purchases.</li>
+</ol>
+
+<p>Each record in the dataset is related to a specific aggregated slice of the underlying sales data rolled up into a week_date value which represents the start of the sales week.</p>
+
+<p>10 random rows are shown in the table output below from <code class="language-plaintext highlighter-rouge">data_mart.weekly_sales</code>.</p>
+
+<p><img width="649" alt="image" src="https://user-images.githubusercontent.com/81607668/131438417-1e21efa3-9924-490f-9bff-3c28cce41a37.png" /></p>
+
+<hr />
+
+<h2 id="case-study-solution">Case Study Solution</h2>
+
+<h3 id="a-data-cleansing-steps">A. Data Cleansing Steps</h3>
+
+<p>View my solution <a href="">here</a>.</p>
+
+<p>In a single query, perform the following operations and generate a new table in the <code class="language-plaintext highlighter-rouge">data_mart</code> schema named <code class="language-plaintext highlighter-rouge">clean_weekly_sales</code>:</p>
+
+<ul>
+  <li>Convert the <code class="language-plaintext highlighter-rouge">week_date</code> to a <code class="language-plaintext highlighter-rouge">DATE</code> format</li>
+  <li>Add a <code class="language-plaintext highlighter-rouge">week_number</code> as the second column for each <code class="language-plaintext highlighter-rouge">week_date</code> value, for example any value from the 1st of January to 7th of January will be 1, 8th to 14th will be 2 etc</li>
+  <li>Add a <code class="language-plaintext highlighter-rouge">month_number</code> with the calendar month for each <code class="language-plaintext highlighter-rouge">week_date</code> value as the 3rd column</li>
+  <li>Add a <code class="language-plaintext highlighter-rouge">calendar_year</code> column as the 4th column containing either 2018, 2019 or 2020 values</li>
+  <li>Add a new column called <code class="language-plaintext highlighter-rouge">age_band</code> after the original segment column using the following mapping on the number inside the segment value</li>
+</ul>
+
+<p><img width="166" alt="image" src="https://user-images.githubusercontent.com/81607668/131438667-3b7f3da5-cabc-436d-a352-2022841fc6a2.png" /></p>
+
+<ul>
+  <li>Add a new <code class="language-plaintext highlighter-rouge">demographic</code> column using the following mapping for the first letter in the <code class="language-plaintext highlighter-rouge">segment</code> values:</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>segment</th>
+      <th>demographic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C</td>
+      <td>Couples</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>Families</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Ensure all <code class="language-plaintext highlighter-rouge">null</code> string values with an “unknown” string value in the original <code class="language-plaintext highlighter-rouge">segment</code> column as well as the new <code class="language-plaintext highlighter-rouge">age_band</code> and <code class="language-plaintext highlighter-rouge">demographic</code> columns</li>
+  <li>Generate a new <code class="language-plaintext highlighter-rouge">avg_transaction</code> column as the sales value divided by transactions rounded to 2 decimal places for each record</li>
+</ul>
+
+<hr />
+
+<h3 id="b-data-exploration">B. Data Exploration</h3>
+
+<p>View my solution <a href="">here</a>.</p>
+
+<ol>
+  <li>What day of the week is used for each week_date value?</li>
+  <li>What range of week numbers are missing from the dataset?</li>
+  <li>How many total transactions were there for each year in the dataset?</li>
+  <li>What is the total sales for each region for each month?</li>
+  <li>What is the total count of transactions for each platform</li>
+  <li>What is the percentage of sales for Retail vs Shopify for each month?</li>
+  <li>What is the percentage of sales by demographic for each year in the dataset?</li>
+  <li>Which age_band and demographic values contribute the most to Retail sales?</li>
+  <li>Can we use the avg_transaction column to find the average transaction size for each year for Retail vs Shopify? If not - how would you calculate it instead?</li>
+</ol>
+
+<hr />
+
+<h3 id="c-before--after-analysis">C. Before &amp; After Analysis</h3>
+
+<p>View my solution <a href="">here</a>.</p>
+
+<p>This technique is usually used when we inspect an important event and want to inspect the impact before and after a certain point in time.</p>
+
+<p>Taking the <code class="language-plaintext highlighter-rouge">week_date</code> value of <code class="language-plaintext highlighter-rouge">2020-06-15</code> as the baseline week where the Data Mart sustainable packaging changes came into effect. We would include all <code class="language-plaintext highlighter-rouge">week_date</code> values for <code class="language-plaintext highlighter-rouge">2020-06-15</code> as the start of the period after the change and the previous week_date values would be before.</p>
+
+<p>Using this analysis approach - answer the following questions:</p>
+
+<ol>
+  <li>What is the total sales for the 4 weeks before and after <code class="language-plaintext highlighter-rouge">2020-06-15</code>? What is the growth or reduction rate in actual values and percentage of sales?</li>
+  <li>What about the entire 12 weeks before and after?</li>
+  <li>How do the sale metrics for these 2 periods before and after compare with the previous years in 2018 and 2019?</li>
+</ol>
+
+<hr />
+
+<h3 id="d-bonus-question">D. Bonus Question</h3>
+
+<p>View my solution <a href="">here</a>.</p>
+
+<p>Which areas of the business have the highest negative impact in sales metrics performance in 2020 for the 12 week before and after period?</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">region</code></li>
+  <li><code class="language-plaintext highlighter-rouge">platform</code></li>
+  <li><code class="language-plaintext highlighter-rouge">age_band</code></li>
+  <li><code class="language-plaintext highlighter-rouge">demographic</code></li>
+  <li><code class="language-plaintext highlighter-rouge">customer_type</code></li>
+</ul>
+
+<p>Do you have any further recommendations for Danny’s team at Data Mart or any interesting insights based off this analysis?</p>
+
+<hr />
+
+    </div>
+  </div>
+
+</div>
+
+
+  <div class="py-6 mt-6 border-t-2 block md:hidden">
+    <h3 class="text-sm font-medium mb-1">Categories</h3>
+    <div>
+      
+        <a class="p-1 px-3 mr-1 mb-1 inline-block text-xs font-mono rounded bg-green-200 text-green-800 hover:bg-blue-200 hover:text-blue-800 transition duration-300 ease-in-out" href="/jekyll-atlantic-theme/category/sql">SQL</a>
+      
+    </div>
+  </div>
+ 
+      <footer class="py-6 border-t-2">
+  <div class="container mx-auto">
+    <div class="flex mb-2">
+      
+      <a class="py-2 mr-2" href="https://github.com/yashk1"><img width="24" height="24" src="https://simpleicons.org/icons/github.svg" alt="Github" /></a>
+      
+      <a class="py-2 mr-2" href="https://twitter.com/yash8145"><img width="24" height="24" src="https://simpleicons.org/icons/linkedin.svg" alt="Twitter" /></a>
+      
+      <a class="py-2 mr-2" href="https://www.linkedin.com/in/yashk1/"><img width="24" height="24" src="https://simpleicons.org/icons/twitter.svg" alt="Linkedin" /></a>
+      
+    </div>
+    <div class="text-sm text-gray-600">
+      <span>Free Jekyll theme by</span>
+<a class="text-green-500" href="
+        https://www.zerostatic.io">Zerostatic Themes</a>
+    </div>
+</footer>
+    </div>
+    
+    
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXYJ1TL6TK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-LXYJ1TL6TK');
+    </script>
+    
+
+    <script type="text/javascript" src="/jekyll-atlantic-theme/assets/js/hamburger.js"></script>
+  </body>
+</html>
